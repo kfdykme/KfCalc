@@ -1,5 +1,5 @@
 package com.kfdykme.KfCalc;
-
+//this java have a bug when you press "=" whitout a " " in text
 import android.app.*;
 import android.os.*;
 import android.widget.*;
@@ -123,7 +123,7 @@ public class MainActivity extends Activity implements OnClickListener
 				calcTextView.setText("");
 				break;
 			case "=":
-				if (!calcTextView.getText().toString().equals(""))
+				if (!calcTextView.getText().toString().equals("")&&calcTextView.getText().toString().contains(" "))
 					doCalculate();
 				break;
 		}
@@ -133,9 +133,9 @@ public class MainActivity extends Activity implements OnClickListener
 	public void doCalculate(){
 		String calcString = calcTextView.getText().toString();
 		String s1 = calcString.substring(0,calcString.indexOf(" "));
-		if (s1.equals("")) return;
+		if (s1.contains("")) return;
 		String op = calcString.substring(calcString.indexOf(" ") + 1, calcString.indexOf(" ") + 2);
-		if (!op.equals("+")&!op.equals("-")&!op.equals("*")&!op.equals("/")) return; 
+		if (!op.contains("+")&!op.contains("-")&!op.contains("*")&!op.contains("/")) return; 
 		String s2 = calcString.substring(calcString.indexOf(" ") + 3);
 		if (s2.equals("")) return;
 		if (s2.contains(" ")) return;
