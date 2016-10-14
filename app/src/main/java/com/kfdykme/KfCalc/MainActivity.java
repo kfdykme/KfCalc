@@ -1,11 +1,13 @@
 package com.kfdykme.KfCalc;
-//this java have a bug when you press "=" whitout a " " in text
+
 import android.app.*;
 import android.os.*;
 import android.widget.*;
 import android.view.View.*;
 import android.view.*;
 import java.util.*;
+
+// you can calclulate "1+6+-" or "1+7*/" but you can't "1+6+"
 
 public class MainActivity extends Activity implements OnClickListener
 {
@@ -30,7 +32,14 @@ public class MainActivity extends Activity implements OnClickListener
 	private Button cBEqual;
 	private Button cBDel;
 	private Button cBClear;
-	
+	public int symbolId = 0;
+	public String number1String = "";
+	public double number1Double;
+	public String number2String = "";
+	public double number2Double;
+	public int symbolLocation;
+	public int sL;
+	public double resultDouble;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -83,91 +92,190 @@ public class MainActivity extends Activity implements OnClickListener
 	}
 
 	@Override
-	public void onClick(View p1)
+	public void onClick(View v)
 	{
-		String bText = ((Button)p1).getText().toString();
-		
-		switch(bText){
-			case "1": case "2": case "3": 
-			case "4": case "5": case "6": 
-			case "7": case "8": case "9": 
-			case ".": case "0":
-				calcTextView.setText(calcTextView.getText().toString() + ((Button)p1).getText().toString());
-				break;
-			case "+": case "-": 
-			case "*": case "/":
-				calcTextView.setText(calcTextView.getText() + " " + bText + " " );
-				break;
-			case "Del": 
-				if ( calcTextView.getText().length() != 0 ){
-					if(calcTextView.getText().toString().substring(calcTextView.getText().length()).equals(" ")){
-						if(calcTextView.getText().toString().substring(calcTextView.getText().length()-2,calcTextView.getText().length()-2).equals(" ")){
-							calcTextView.setText(calcTextView.getText().toString().substring(0,calcTextView.getText().length()-3));
-							resTextView.setText("thi is a try");
-						}
-					}else {
-						calcTextView.setText(calcTextView.getText().toString().substring(0,calcTextView.getText().length()-1));
-						
-					}
-					}
+		switch(((Button)v).getId()){
+			
+			//input text to calctext by id	
+			case R.id.calcButtonAdd:
+			case R.id.calcButtonMinus:
+			case R.id.calcButtonMult:
+			case R.id.calcButtonDivi:
+					symbolId = ((Button)v).getId();
+					symbolLocation = calcTextView.getText().length() + 1;
+					sL = symbolLocation;
+			case R.id.numberButton0:
+			case R.id.numberButton1:
+			case R.id.numberButton2:
+			case R.id.numberButton3:
+			case R.id.numberButton4:
+			case R.id.numberButton5:
+			case R.id.numberButton6:
+			case R.id.numberButton7:
+			case R.id.numberButton8:
+			case R.id.numberButton9:
+			case R.id.numberButtonPoint:
+				calcTextView.setText(calcTextView.getText().toString() + ((Button)v).getText().toString());
 					
-				/*switch ( calcTextView.getText().toString()
-				.substring(calcTextView.getText().
-				length() -2,calcTextView.getText().length()-2)){
-					case "+":case "-":case "*":case "/":
-			 			calcTextView.setText(calcTextView.getText().toString().substring(0,calcTextView.getText().length()-3));
-						break;
-				}*/
 				break;
-			case "C":
+			//do clear to ""
+			case R.id.calcButtonClear:
 				calcTextView.setText("");
 				break;
-			case "=":
-				if (!calcTextView.getText().toString().equals("")&&calcTextView.getText().toString().contains(" "))
-					doCalculate();
+			//do delete a char
+			case R.id.calcButtonDel:
+				if (calcTextView.getText().length() != 0){
+						calcTextView.setText(calcTextView.getText().toString().substring(0,calcTextView.getText().length()-1));
+				}
+				break;		
+			case R.id.calcButtonEqu:
+				if (!calcTextView.getText().equals("")){
+						if(calcTextView.getText().toString().contains("+") 
+								|| calcTextView.getText().toString().contains("-") 
+								|| calcTextView.getText().toString().contains("*") 
+								|| calcTextView.getText().toString().contains("/") ){
+										doCalculate();
+						 }else{
+								 Toast.makeText(getApplicationContext(),"Please do currently!1",Toast.LENGTH_SHORT).show();
+										
+								} 
+				} else{
+						Toast.makeText(getApplicationContext(),"Please do currently!2",Toast.LENGTH_SHORT).show();
+						
+				}
 				break;
 		}
-		// TODO: Implement this method
-	}
-	
-	public void doCalculate(){
-		String calcString = calcTextView.getText().toString();
-		String s1 = calcString.substring(0,calcString.indexOf(" "));
-		if (s1.contains("")) return;
-		String op = calcString.substring(calcString.indexOf(" ") + 1, calcString.indexOf(" ") + 2);
-		if (!op.contains("+")&!op.contains("-")&!op.contains("*")&!op.contains("/")) return; 
-		String s2 = calcString.substring(calcString.indexOf(" ") + 3);
-		if (s2.equals("")) return;
-		if (s2.contains(" ")) return;
-		double r = 0;
-		double n1 = Double.parseDouble(s1);
-		
-		double n2 = Double.parseDouble(s2);
- 		
-		switch(op){
-			case "+":
-				r = n1 + n2;
-				break;
-			case "-":
-				r = n1 - n2;
-				break;
-			case "*":
-				r = n1 * n2;
-				break;
-			case "/":
-				r = n1 / n2;
-				break;
-			default:
-				return;
-				
-		}
-		//calcTextView.setText(s1 + "\n" + op + "\n" + s2);
-		
-		resTextView.setText(resTextView.getText().toString() + "\n" + calcString + " = " + Double.toString(r));
-		calcTextView.setText("");
-	}
 
+		}
+		
+		public void doCalculate() {
+				//Toast.makeText(getApplicationContext(),"Docalculate" +"\n" + number1String + "\n" +number2String + "\n"  ,Toast.LENGTH_SHORT).show();
+				if (calcTextView.getText().toString().substring(0,symbolLocation -1).isEmpty()) {
+						number1String = "0";
+						//Toast.makeText(getApplicationContext(),"number1String = '' ",Toast.LENGTH_SHORT).show();
+				} else {
+						number1String = calcTextView.getText().toString().substring(0,symbolLocation -1);
+						//Toast.makeText(getApplicationContext(),"number1String = " + number1String,Toast.LENGTH_SHORT).show();
+						
+				}
+				if(number1String.contains("+")
+					 ||number1String.contains("-")
+					 ||number1String.contains("*")
+					 ||number1String.contains("/")){
+						//Toast.makeText(getApplicationContext(),"+" +"\n" + number1String + "\n" +number2String + "\n"  ,Toast.LENGTH_SHORT).show();
+				}else{
+						number1Double = Double.parseDouble(number1String);
+						//Toast.makeText(getApplicationContext(),"number1Double =",1).show();
+				}
+				
+				
+				/*
+				if(number1String.contains("+")
+					 ||number1String.contains("-")
+					 ||number1String.contains("*")
+					 ||number1String.contains("/")){
+						//Toast.makeText(getApplicationContext(),"+" +"\n" + number1String + "\n" +number2String + "\n"  ,Toast.LENGTH_SHORT).show();
+						}else{
+						number1Double = Double.parseDouble(number1String);
+						//Toast.makeText(getApplicationContext(),"number1Double =",1).show();
+						}
+				*/
+				//number2String = calcTextView.getText().toString().substring(sL+1,calcTextView.getText().length());
+				
+				/*if(number2String.contains("+")
+					 ||number2String.contains("-")
+					 ||number2String.contains("*")
+					 ||number2String.contains("/")){
+						
+				}else{
+						//number2Double = Double.parseDouble(number2String);
+						Toast.makeText(getApplicationContext(), "\number2String =" +number2String,1).show();
+						
+						}*/
+				
+						
+				switch(symbolId){
+						case R.id.calcButtonAdd:
+							//	Toast.makeText(getApplicationContext(), "+",2).show();
+								if(calcTextView.getText().toString().substring(calcTextView.getText().toString().indexOf("+")+1,calcTextView.getText().length()).isEmpty()){
+										number2String = "0";
+								}else{
+										number2String = calcTextView.getText().toString().substring(calcTextView.getText().toString().
+										indexOf("+")+1,calcTextView.getText().length());
+							}
+								if(!number2String.contains("+")
+									 &&!number2String.contains("-")
+									 &&!number2String.contains("*")
+									 &&!number2String.contains("/")){
+										number2Double = Double.parseDouble(number2String);											 
+								} else{
+										return;
+								}
+								resultDouble = number1Double + number2Double;
+							break;
+						case R.id.calcButtonMinus:
+							//Toast.makeText(getApplicationContext(), "-",2).show();
+								if(calcTextView.getText().toString().substring(calcTextView.getText().toString().indexOf("-")+1,calcTextView.getText().length()).isEmpty()){
+										number2String = "0";
+								}else{
+							number2String = calcTextView.getText().toString().substring(calcTextView.getText().toString().
+								indexOf("-")+1,calcTextView.getText().length());
+								}
+								if(!number2String.contains("+")
+									 &&!number2String.contains("-")
+									 &&!number2String.contains("*")
+									 &&!number2String.contains("/")){
+										number2Double = Double.parseDouble(number2String);											 
+								} else{
+										return;
+}
+							resultDouble = number1Double - number2Double;
+							break;
+						case R.id.calcButtonMult:
+						//	Toast.makeText(getApplicationContext(), "*",2).show();
+								if(calcTextView.getText().toString().substring(calcTextView.getText().toString().indexOf("*")+1,calcTextView.getText().length()).isEmpty()){
+										number2String = "0";
+								}else{
+										number2String = calcTextView.getText().toString().substring(calcTextView.getText().toString().indexOf("*")+1,calcTextView.getText().length());		
+								}
+								if(!number2String.contains("+")
+									 &&!number2String.contains("-")
+									 &&!number2String.contains("*")
+									 &&!number2String.contains("/")){
+										number2Double = Double.parseDouble(number2String);											 
+								} else{
+										return;
+								}							
+								resultDouble = number1Double * number2Double;
+								break;
+						case R.id.calcButtonDivi:
+							//	Toast.makeText(getApplicationContext(), "/",2).show();
+								if(calcTextView.getText().toString().substring(calcTextView.getText().toString().indexOf("/")+1,calcTextView.getText().length()).isEmpty()){
+										number2String = "0";
+								}else{
+										number2String = calcTextView.getText().toString().substring(calcTextView.getText().toString().
+								indexOf("/")+1,calcTextView.getText().length());
+								}
+								if(!number2String.contains("+")
+									 &&!number2String.contains("-")
+									 &&!number2String.contains("*")
+									 &&!number2String.contains("/")){
+										number2Double = Double.parseDouble(number2String);											 
+								} else{
+									return;
+								}
+								resultDouble = number1Double / number2Double;
+								break;
+				} 
+				
+				//Toast.makeText(getApplicationContext(),"resultDouble=" + Double.toString(resultDouble) + "\number2String =" +number2String,1).show();
+				
+				resTextView.setText(resTextView.getText().toString() 
+				+ "\n" + calcTextView.getText().toString() +"="+ Double.toString(resultDouble));
+				calcTextView.setText("");
+				
+				}
 	
-	
+		
 	
 }
