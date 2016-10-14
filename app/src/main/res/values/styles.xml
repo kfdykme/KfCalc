@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
+    <style name="AppTheme" parent="@android:style/Theme.Black">
 	</style>
+	
+	<style name="numberButton" >
+		<item name="android:textSize">35sp</item>
+		<item name="android:layout_width"> 68dp</item>
+		<item name="android:layout_height">86.52dp</item>
+		<item name="android:background">#607d8b</item>
+		<item name="android:paddingTop">1dp</item>
+		<item name="android:textColor">#f0cab0</item>
+		</style>
 </resources>
