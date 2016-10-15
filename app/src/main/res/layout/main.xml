@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:layout_width="match_parent">
+	android:gravity="top"
+	android:orientation="vertical"
+	style="@style/AppTheme">
 
 	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:gravity="top"
-		android:orientation="vertical"
-		style="@style/AppTheme">
+		android:layout_width="360dp"
+		android:background="#795548"
+		android:orientation="horizontal"
+		android:layout_height="213.92dp">
 
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:background="#795548"
-			android:orientation="horizontal"
-			android:layout_height="213.92dp">
+		<ScrollView
+			android:layout_height="match_parent"
+			android:layout_width="137.52dp"
+			android:layout_marginBottom="20dp"
+			android:id="@+id/resScrollView"
+			android:layout_marginLeft="3dp">
 
-			<ScrollView
+			<HorizontalScrollView
 				android:layout_height="match_parent"
-				android:layout_width="150dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp">
+				android:layout_width="match_parent"
+				android:id="@+id/resHorizontalScrollView">
 
 				<TextView
 					android:id="@+id/resTextView"
@@ -30,179 +32,180 @@
 					android:layout_width="match_parent"
 					android:textColor="#D5D4D3"/>
 
-			</ScrollView>
+			</HorizontalScrollView>
 
-			<TextView
-				android:id="@+id/calcTextView"
-				android:layout_height="match_parent"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:layout_width="match_parent"
-				android:textColor="#FC8C4B"
-				android:gravity="top|left"
-				android:layout_marginBottom="30dp"
-				android:textSize="27sp"
-				android:layout_marginTop="30dp"/>
+		</ScrollView>
 
-		</LinearLayout>
+		<TextView
+			android:id="@+id/calcTextView"
+			android:layout_height="match_parent"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent"
+			android:textColor="#FC8C4B"
+			android:gravity="top|left"
+			android:textSize="27sp"
+			android:layout_marginTop="60dp"
+			android:layout_marginLeft="3dp"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="#607D8B">
 
 		<LinearLayout
-			android:layout_height="match_parent"
+			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
-			android:orientation="horizontal"
-			android:background="#607D8B">
+			android:orientation="vertical">
 
 			<LinearLayout
 				android:layout_height="wrap_content"
+				android:layout_width="match_parent">
+
+				<Button
+					android:text="1"
+					android:id="@+id/numberButton1"
+					style="@style/numberButton"/>
+
+				<Button
+					android:text="2"
+					android:layout_toRightOf="@id/numberButton1"
+					android:id="@+id/numberButton2"
+					style="@style/numberButton"/>
+
+				<Button
+					android:text="3"
+					android:layout_toRightOf="@id/numberButton2"
+					android:id="@+id/numberButton3"
+					style="@style/numberButton"/>
+
+				<Button
+					android:id="@+id/calcButtonDel"
+					android:text="Del"
+					android:layout_toRightOf="@id/numberButton3"
+					style="@style/numberButton"
+					android:layout_width="match_parent"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_height="match_parent"
 				android:layout_width="match_parent"
-				android:orientation="vertical">
+				android:orientation="horizontal">
 
 				<LinearLayout
 					android:layout_height="wrap_content"
-					android:layout_width="match_parent">
+					android:layout_width="wrap_content"
+					android:orientation="vertical">
 
-					<Button
-						android:text="1"
-						android:id="@+id/numberButton1"
-						style="@style/numberButton"/>
+					<LinearLayout
+						android:layout_height="wrap_content"
+						android:layout_width="match_parent"
+						android:orientation="horizontal">
 
-					<Button
-						android:text="2"
-						android:layout_toRightOf="@id/numberButton1"
-						android:id="@+id/numberButton2"
-						style="@style/numberButton"/>
+						<Button
+							android:text="4"
+							android:id="@+id/numberButton4"
+							style="@style/numberButton"/>
 
-					<Button
-						android:text="3"
-						android:layout_toRightOf="@id/numberButton2"
-						android:id="@+id/numberButton3"
-						style="@style/numberButton"/>
+						<Button
+							android:text="5"
+							android:layout_toRightOf="@id/numberButton4"
+							android:id="@+id/numberButton5"
+							style="@style/numberButton"/>
 
-					<Button
-						android:id="@+id/calcButtonDel"
-						android:text="Del"
-						android:layout_toRightOf="@id/numberButton3"
-						style="@style/numberButton"
-						android:layout_width="match_parent"/>
+						<Button
+							android:text="6"
+							android:layout_toRightOf="@id/numberButton5"
+							android:id="@+id/numberButton6"
+							style="@style/numberButton"/>
+
+						<Button
+							android:id="@+id/calcButtonAdd"
+							android:text="+"
+							android:layout_toRightOf="@id/numberButton6"
+							style="@style/numberButton"/>
+
+					</LinearLayout>
+
+					<LinearLayout
+						android:layout_height="wrap_content"
+						android:layout_width="match_parent"
+						android:orientation="horizontal">
+
+						<Button
+							android:id="@+id/numberButton7"
+							android:text="7"
+							style="@style/numberButton"/>
+
+						<Button
+							android:id="@+id/numberButton8"
+							android:text="8"
+							style="@style/numberButton"/>
+
+						<Button
+							android:id="@+id/numberButton9"
+							android:text="9"
+							style="@style/numberButton"/>
+
+						<Button
+							android:id="@+id/calcButtonMinus"
+							android:text="-"
+							style="@style/numberButton"/>
+
+					</LinearLayout>
+
+					<LinearLayout
+						android:layout_height="wrap_content"
+						android:layout_width="match_parent"
+						android:orientation="horizontal">
+
+						<Button
+							android:id="@+id/numberButtonPoint"
+							android:text="."
+							style="@style/numberButton"/>
+
+						<Button
+							android:id="@+id/numberButton0"
+							android:text="0"
+							style="@style/numberButton"/>
+
+						<Button
+							android:id="@+id/calcButtonMult"
+							android:text="*"
+							style="@style/numberButton"/>
+
+						<Button
+							android:id="@+id/calcButtonDivi"
+							android:text="/"
+							style="@style/numberButton"/>
+
+					</LinearLayout>
 
 				</LinearLayout>
 
 				<LinearLayout
 					android:layout_height="match_parent"
 					android:layout_width="match_parent"
-					android:orientation="horizontal">
+					android:orientation="vertical">
 
-					<LinearLayout
-						android:layout_height="wrap_content"
-						android:layout_width="wrap_content"
-						android:orientation="vertical">
-
-						<LinearLayout
-							android:layout_height="wrap_content"
-							android:layout_width="match_parent"
-							android:orientation="horizontal">
-
-							<Button
-								android:text="4"
-								android:id="@+id/numberButton4"
-								style="@style/numberButton"/>
-
-							<Button
-								android:text="5"
-								android:layout_toRightOf="@id/numberButton4"
-								android:id="@+id/numberButton5"
-								style="@style/numberButton"/>
-
-							<Button
-								android:text="6"
-								android:layout_toRightOf="@id/numberButton5"
-								android:id="@+id/numberButton6"
-								style="@style/numberButton"/>
-
-							<Button
-								android:id="@+id/calcButtonAdd"
-								android:text="+"
-								android:layout_toRightOf="@id/numberButton6"
-								style="@style/numberButton"/>
-
-						</LinearLayout>
-
-						<LinearLayout
-							android:layout_height="wrap_content"
-							android:layout_width="match_parent"
-							android:orientation="horizontal">
-
-							<Button
-								android:id="@+id/numberButton7"
-								android:text="7"
-								style="@style/numberButton"/>
-
-							<Button
-								android:id="@+id/numberButton8"
-								android:text="8"
-								style="@style/numberButton"/>
-
-							<Button
-								android:id="@+id/numberButton9"
-								android:text="9"
-								style="@style/numberButton"/>
-
-							<Button
-								android:id="@+id/calcButtonMinus"
-								android:text="-"
-								style="@style/numberButton"/>
-
-						</LinearLayout>
-
-						<LinearLayout
-							android:layout_height="wrap_content"
-							android:layout_width="match_parent"
-							android:orientation="horizontal">
-
-							<Button
-								android:id="@+id/numberButtonPoint"
-								android:text="."
-								style="@style/numberButton"/>
-
-							<Button
-								android:id="@+id/numberButton0"
-								android:text="0"
-								style="@style/numberButton"/>
-
-							<Button
-								android:id="@+id/calcButtonMult"
-								android:text="*"
-								style="@style/numberButton"/>
-
-							<Button
-								android:id="@+id/calcButtonDivi"
-								android:text="/"
-								style="@style/numberButton"/>
-
-						</LinearLayout>
-
-					</LinearLayout>
-
-					<LinearLayout
-						android:layout_height="match_parent"
+					<Button
+						android:id="@+id/calcButtonClear"
 						android:layout_width="match_parent"
-						android:orientation="vertical">
+						android:text="C"
+						android:textSize="20sp"
+						style="@style/numberButton"/>
 
-						<Button
-							android:id="@+id/calcButtonClear"
-							android:layout_width="match_parent"
-							android:text="C"
-							android:textSize="20sp"
-							style="@style/numberButton"/>
-
-						<Button
-							android:background="#C3756B"
-							android:id="@+id/calcButtonEqu"
-							android:layout_height="173.04dp"
-							android:layout_width="match_parent"
-							android:text="="
-							android:textSize="20sp"/>
-
-					</LinearLayout>
+					<Button
+						android:background="@drawable/equ_button_selector"
+						android:id="@+id/calcButtonEqu"
+						android:layout_height="173.04dp"
+						android:layout_width="match_parent"
+						android:text="="
+						android:textColor="#ffeebb"
+						android:textSize="60sp"/>
 
 				</LinearLayout>
 
@@ -212,5 +215,5 @@
 
 	</LinearLayout>
 
-</ScrollView>
+</LinearLayout>
 

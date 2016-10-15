@@ -7,8 +7,9 @@
 		<item name="android:textSize">35sp</item>
 		<item name="android:layout_width"> 68dp</item>
 		<item name="android:layout_height">86.52dp</item>
-		<item name="android:background">#607d8b</item>
+		<item name="android:background">@drawable/button_selector</item>
 		<item name="android:paddingTop">1dp</item>
 		<item name="android:textColor">#f0cab0</item>
 		</style>
+		
 </resources>
