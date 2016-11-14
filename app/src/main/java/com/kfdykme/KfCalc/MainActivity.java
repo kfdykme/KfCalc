@@ -1,5 +1,5 @@
 package com.kfdykme.KfCalc;
-//主要程序
+
 import android.app.*;
 import android.os.*;
 import android.widget.*;
@@ -15,7 +15,7 @@ public class MainActivity extends Activity implements OnClickListener
 		 //用于存储 显示整个表达式包括结果的Textview
 		 private TextView resTextView;
 		 //输入数字 符号和清除 清空的按钮
-		 private Button nB1;
+		 private Button numberButton1;
 		 private Button nB2;
 		 private Button nB3;
 		 private Button nB4;
@@ -68,7 +68,7 @@ public class MainActivity extends Activity implements OnClickListener
 					calcTextView = (TextView) findViewById((R.id.calcTextView));
 					resTextView = (TextView) findViewById((R.id.resTextView));
 
-					nB1 = (Button) findViewById(R.id.numberButton1);
+					numberButton1 = (Button) findViewById(R.id.numberButton1);
 					nB2 = (Button) findViewById(R.id.numberButton2);
 					nB3 = (Button) findViewById(R.id.numberButton3);
 					nB4 = (Button) findViewById(R.id.numberButton4);
@@ -90,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener
 					resHorezontalScrollView = (HorizontalScrollView) findViewById(R.id.resHorizontalScrollView);
 
 					//为按钮控件设置onClickListener
-					nB1.setOnClickListener(this);
+					numberButton1.setOnClickListener(this);
 					nB2.setOnClickListener(this);
 					nB3.setOnClickListener(this);
 					nB4.setOnClickListener(this);
@@ -111,6 +111,48 @@ public class MainActivity extends Activity implements OnClickListener
 
 		 }
 
+		 public String onPauseCalcTextView;
+public String onPauseResTextView;
+		 @Override
+		 protected void onPause()
+		 {
+					// TODO: Implement this method
+					super.onPause();
+					onPauseCalcTextView =calcTextView.getText().toString();
+					onPauseResTextView = resTextView.getText().toString();
+		 }
+
+		 @Override
+		 protected void onStop()
+		 {
+					// TODO: Implement this method
+					super.onStop();
+		 }
+
+		 @Override
+		 protected void onResume()
+		 {
+					// TODO: Implement this method
+					super.onResume();
+					calcTextView.setText(onPauseCalcTextView);
+					resTextView.setText(onPauseResTextView);
+		 }
+
+		 @Override
+		 protected void onRestart()
+		 {
+					// TODO: Implement this method
+					super.onRestart();
+		 }
+
+		 @Override
+		 protected void onDestroy()
+		 {
+					// TODO: Implement this method
+					super.onDestroy();
+		 }
+
+		 
 		 @Override
 		 public void onClick(View v)
 		 {
@@ -348,7 +390,7 @@ public class MainActivity extends Activity implements OnClickListener
 					//将resHorizontalScrollView滑动到最右端
 					resHorezontalScrollView.scrollTo((calcTextView.getText().toString() + "=" + Double.toString(resultDouble)).length(), 0);
 					//重置，将calcTextView中文本清为“”，同时将symbolId设为0
-					calcTextView.setText("");
+					calcTextView.setText(Double.toString(resultDouble));
 					symbolId = 0;
 		 }
 
